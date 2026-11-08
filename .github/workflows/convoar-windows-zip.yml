@@ -1,0 +1,62 @@
+name: Convoar Windows - ZIP de test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/convoar-windows-zip.yml'
+      - 'dist/**'
+
+permissions:
+  contents: read
+
+jobs:
+  package-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Verifier que Convoar est disponible
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "dist/convoar.exe")) { throw "dist/convoar.exe introuvable" }
+          if (-not (Test-Path "dist/OpenMetaverse.dll")) { throw "DLL OpenMetaverse introuvable" }
+          Write-Host "Exécutable et dependances principales presents."
+
+      - name: Tester Convoar sur Windows
+        shell: pwsh
+        run: |
+          Push-Location dist
+          try {
+            & .\convoar.exe --help
+            if ($LASTEXITCODE -ne 0) { throw "Convoar --help a retourne le code $LASTEXITCODE" }
+          } finally { Pop-Location }
+
+      - name: Fabriquer l'archive complete
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force "package/Convoar" | Out-Null
+          Copy-Item "dist/*" "package/Convoar/" -Recurse -Force
+          @'
+          Convoar pour Windows (.NET Framework 4.8)
+          
+          Ce dossier contient convoar.exe et ses DLL necessaires.
+          Conserver tous les fichiers ensemble.
+          
+          Essai depuis PowerShell :
+            cd Convoar
+            .\convoar.exe --help
+          
+          Pour Web_3d : passer le chemin complet de convoar.exe
+          au script oar2glb.py avec --convoar.
+          '@ | Set-Content "package/LISEZ-MOI.txt" -Encoding UTF8
+          Compress-Archive -Path "package/*" -DestinationPath "Convoar-Windows-Web3D.zip" -Force
+
+      - name: Publier le ZIP dans les artefacts GitHub Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: Convoar-Windows-Web3D
+          path: Convoar-Windows-Web3D.zip
+          if-no-files-found: error
+          retention-days: 30
