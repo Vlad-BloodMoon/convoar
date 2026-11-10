@@ -2,7 +2,7 @@
 
 **English** | [Français](WINDOWS_WEB3D.fr.md)
 
-> This is a fork of [Misterblue/convoar](https://github.com/Misterblue/convoar). The Web_3d Windows distribution **packages and tests the existing binary** checked into `dist/` with its dependencies. It **does not compile a new C# build**, and it does not install Python.
+> This is a fork of [Misterblue/convoar](https://github.com/Misterblue/convoar). This distribution provides a **ready-to-use Windows ZIP** containing `convoar.exe` and its dependencies, prepared and tested by GitHub Actions. Python is installed separately for Web_3d.
 
 ## 1. Download
 
