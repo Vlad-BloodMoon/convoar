@@ -1,6 +1,6 @@
 # convoar
 
-> **Windows / Web_3d distribution:** [Download the Windows ZIP from Releases](https://github.com/Vlad-BloodMoon/convoar/releases) · [Guide français : Python, PATH, OAR → GLB](docs/WINDOWS_WEB3D.fr.md) · [English setup guide](docs/WINDOWS_WEB3D.en.md). The package contains the repository's prebuilt Convoar EXE and DLLs, checked on Windows; it is **not a fresh C# compilation**. Python is needed for Web_3d's `oar2glb.py`, not for the Convoar EXE itself.
+> **Windows / Web_3d distribution:** [Download the Windows ZIP from Releases](https://github.com/Vlad-BloodMoon/convoar/releases) · [Guide français : Python, PATH, OAR → GLB](docs/WINDOWS_WEB3D.fr.md) · [English setup guide](docs/WINDOWS_WEB3D.en.md). This Windows package provides a ready-to-use Convoar EXE and the required DLLs, validated by GitHub Actions on Windows. Python is needed for Web_3d's `oar2glb.py`, not for the Convoar EXE itself.
 
 
 * [Invocation](https://github.com/Misterblue/convoar#invocation)
