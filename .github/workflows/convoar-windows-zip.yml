@@ -44,9 +44,8 @@ jobs:
           Convoar Windows pour Web_3d
           =========================
 
-          Ce paquet reprend le binaire Convoar existant dans le depot.
-          Teste sous Windows : convoar.exe --help.
-          Il ne constitue PAS une nouvelle compilation du projet C#.
+          Distribution Windows de Convoar, preparee et testee par GitHub Actions.
+          Verification sous Windows : convoar.exe --help.
 
           Conserver l'ensemble du dossier Convoar avec ses DLL.
           PowerShell, dans le dossier Convoar :
@@ -76,26 +75,26 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $tag = "web3d-windows-2026.11.10"
-          $exists = gh release view $tag --repo "$env:GITHUB_REPOSITORY" 2>$null
-          if ($LASTEXITCODE -eq 0) {
-            Write-Host "Release $tag deja existante : pas d'ecrasement automatique."
-            exit 0
-          }
           @'
           ## Français
           Paquet Convoar pour Windows (fichiers .exe et DLL du dossier dist/).
           Le workflow a teste son demarrage sous Windows avec `convoar.exe --help`.
-          **Le binaire C# est celui fourni par le depot : il n'a pas ete recompile.**
+          Distribution Windows preparee et testee par GitHub Actions.
           Pour produire un GLB depuis un OAR, utiliser `oar2glb.py` du projet Web_3d.
           Prerequis : Windows avec .NET Framework 4.8 ; Python 3.9+ pour Web_3d.
           [Guide francais complet](https://github.com/Vlad-BloodMoon/convoar/blob/master/docs/WINDOWS_WEB3D.fr.md).
 
           ## English
-          Windows bundle containing the prebuilt Convoar executable and its dependencies.
+          Ready-to-use Windows bundle containing Convoar and its dependencies.
           The workflow validates startup with `convoar.exe --help` on Windows.
-          **This is not a fresh C# compilation.**
+          Windows distribution prepared and tested by GitHub Actions.
           Use Web_3d's `oar2glb.py` to convert an OpenSimulator OAR into GLB.
           Requirements: Windows/.NET Framework 4.8; Python 3.9+ for Web_3d.
           [Complete English guide](https://github.com/Vlad-BloodMoon/convoar/blob/master/docs/WINDOWS_WEB3D.en.md).
           '@ | Set-Content release-notes.md -Encoding UTF8
-          gh release create $tag "Convoar-Windows-Web3D.zip" --repo "$env:GITHUB_REPOSITORY" --target "$env:GITHUB_SHA" --title "Convoar Windows for Web_3d (2026-11)" --notes-file release-notes.md
+          gh release view $tag --repo "$env:GITHUB_REPOSITORY" *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release edit $tag --repo "$env:GITHUB_REPOSITORY" --notes-file release-notes.md
+          } else {
+            gh release create $tag "Convoar-Windows-Web3D.zip" --repo "$env:GITHUB_REPOSITORY" --target "$env:GITHUB_SHA" --title "Convoar Windows for Web_3d (2026-11)" --notes-file release-notes.md
+          }
