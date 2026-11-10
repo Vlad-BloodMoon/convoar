@@ -2,7 +2,7 @@
 
 [English](WINDOWS_WEB3D.en.md) | **Français**
 
-> Ce dépôt est un fork de [Misterblue/convoar](https://github.com/Misterblue/convoar). La distribution Web_3d regroupe le **binaire Windows déjà présent dans `dist/`** et ses dépendances ; le workflow **le teste et l'empaquette**, mais **ne recompile pas le code C#**. Ce n'est pas un nouveau moteur de conversion ni un programme d'installation Python.
+> Ce dépôt est un fork de [Misterblue/convoar](https://github.com/Misterblue/convoar). Cette distribution propose un **ZIP Windows prêt à l'emploi**, comprenant `convoar.exe` et les bibliothèques nécessaires. Le paquet est préparé et testé automatiquement par GitHub Actions. Python s'installe séparément pour utiliser Web_3d.
 
 ## 1. Télécharger les bons fichiers
 
